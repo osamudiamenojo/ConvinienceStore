@@ -8,6 +8,12 @@ public class Applicant extends Person{
     private Qualification qualification;
     private Role role=Role.UNDETERMINED;
 
+    public Applicant(String name, Gender gender, Qualification qualification) {
+        super(name, gender);
+        this.qualification = qualification;
+    }
+
+
 
     public Qualification getQualification() {
         return qualification;
@@ -29,10 +35,6 @@ public class Applicant extends Person{
     }
 
 
-    public Applicant(String name, Gender gender, Qualification qualification) {
-        super(name, gender);
-        this.qualification = qualification;
-    }
 
     public String apply(){
         setRole(Role.CASHIER);

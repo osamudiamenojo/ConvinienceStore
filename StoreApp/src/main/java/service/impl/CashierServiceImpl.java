@@ -7,7 +7,8 @@ import exceptions.ServiceException;
 import service.CashierService;
 import service.CustomerService;
 import storerepository.Store;
-import java.util.Iterator;
+
+import java.math.BigInteger;
 
 public class CashierServiceImpl implements CashierService {
 
@@ -17,32 +18,35 @@ public class CashierServiceImpl implements CashierService {
     public String dispenseReceipt(Customer customer) {
         if (customer == null) throw new ServiceException("customer cannot be null");
 
-        Receipt receipt = new Receipt(customer.getName(), customerService.getTotalCostPerCustomer(customer));
+        Receipt receipt = new Receipt(customer.getName(),
+                (customer.getProductToBuy().getPrice().multiply(BigInteger.valueOf(customer.getProductToBuy().getCountOfProduct()))));
         return receipt.toString();
 
     }
 
-@Override
-    public String sellProduct(Customer customer, Product product) {
-    if (customer == null || product == null) {
-        throw new ServiceException("customer or product cannot be null");
-    }
-    while (!store.getCustomersQueue().isEmpty()) {
-                customer = store.getCustomersQueue().poll();
-        Iterator<Product> cartIterator = customer.getCart().iterator();
-                if(cartIterator.hasNext() && store.getProductsInStore().contains(cartIterator.next())){
-                    for(Product productInStore : store.getProductsInStore()){
-                        if(customer.getCashAtHand().compareTo(cartIterator.next().getPrice())<=0) {
+    @Override
+    public String sellProduct(Customer customer) {
+        if (customer == null) {
+            throw new ServiceException("customer or product cannot be null");
+        }
+        while (!store.getCustomersQueue().isEmpty()) {
+            customer = store.getCustomersQueue().poll();
+            if (store.getProductsInStore().contains(customer.getProductToBuy())) {
+                for (Product productInStore : store.getProductsInStore()) {
+                    if (productInStore.equals(customer.getProductToBuy())) {
+                        if (customer.getCashAtHand().compareTo(productInStore.getPrice()) <= 0) {
                             throw new ServiceException("insufficient funds for this product");
-                        } else if (productInStore.equals(cartIterator.next())) {
-                            customer.setCashAtHand(customer.getCashAtHand().subtract(productInStore.getPrice()));
-                            productInStore.setCountOfProduct(productInStore.getCountOfProduct()-cartIterator.next().getCountOfProduct());
-                            return "product Sold";
+                        } else {
+                            customer.setCashAtHand(customer.getCashAtHand().subtract(customer.getProductToBuy().getPrice().multiply(BigInteger.valueOf(customer.getProductToBuy().getCountOfProduct()))));
+                            productInStore.setCountOfProduct(productInStore.getCountOfProduct() - customer.getProductToBuy().getCountOfProduct());
+                            return productInStore.getNameOfProduct() + "has been delivered to " + customer.getName();
                         }
                     }
-
                 }
+            } else {
+                throw new ServiceException("unavailable product");
             }
-    return "Queue is empty";
-}
+        }
+        return "All customers have been attended to";
     }
+}

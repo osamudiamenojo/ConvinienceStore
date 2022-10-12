@@ -5,7 +5,7 @@ import entities.Product;
 import storerepository.Store;
 
 public interface CashierService {
-     String sellProduct(Customer customer, Product product);
+     String sellProduct(Customer customer);
      String dispenseReceipt(Customer customer);
 
 }

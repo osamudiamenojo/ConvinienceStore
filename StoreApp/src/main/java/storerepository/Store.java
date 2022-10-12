@@ -1,10 +1,11 @@
 package storerepository;
 
+import comparator.CustomerProductCountComparator;
 import entities.Customer;
 import entities.Product;
-import comparator.CustomerComparator;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.PriorityQueue;
 
@@ -13,7 +14,7 @@ public class Store {
 
 
 
-    private PriorityQueue<Customer> customersQueue = new PriorityQueue( new CustomerComparator());
+    private PriorityQueue<Customer> customersQueue = new PriorityQueue<>(new CustomerProductCountComparator());
 
     public List<Product> getProductsInStore() {
         return productsInStore;

@@ -61,8 +61,11 @@ public class Main {
         customerService.buyProduct(customer4,product1, 5 );
         customerService.buyProduct(customer4,product3, 9 );
         customerService.buyProduct(customer3, product5,3);
+        customerService.buyProduct(customer2, product5, 3);
 
-        String sellResult = cashierService.sellProduct(customer1, product1);
+        System.out.println(store.getCustomersQueue());
+
+        String sellResult = cashierService.sellProduct(customer1);
         System.out.println(sellResult);
 
 

@@ -7,9 +7,6 @@ public class Receipt {
     private BigInteger totalCost;
     private String message= "Thanks for patronising us";
 
-
-
-
     public String getCustomerName() {
         return customerName;
     }

@@ -7,7 +7,8 @@ import java.util.ArrayList;
 
 public class Customer extends Person{
     private BigInteger cashAtHand;
-    private ArrayList<Product> cart =new ArrayList();
+
+    private Product productToBuy;
 
 
     public Customer() {
@@ -25,10 +26,14 @@ public class Customer extends Person{
     public void setCashAtHand(BigInteger cashAtHand) {
         this.cashAtHand = cashAtHand;
     }
-
-    public ArrayList<Product> getCart() {
-        return cart;
+    public Product getProductToBuy() {
+        return productToBuy;
     }
+
+    public void setProductToBuy(Product productToBuy) {
+        this.productToBuy = productToBuy;
+    }
+
 
 
 }

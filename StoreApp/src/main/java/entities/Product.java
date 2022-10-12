@@ -10,6 +10,14 @@ private BigInteger price;
 private int countOfProduct;
 private Category category;
 
+    public Product(String nameOfProduct, BigInteger price, int countOfProduct, Category category) {
+        this.nameOfProduct = nameOfProduct;
+        this.price = price;
+        this.countOfProduct = countOfProduct;
+        this.category = category;
+    }
+    public Product() {
+    }
     public String getNameOfProduct() {
         return nameOfProduct;
     }
@@ -17,7 +25,6 @@ private Category category;
     public void setNameOfProduct(String nameOfProduct) {
         this.nameOfProduct = nameOfProduct;
     }
-
 
     public BigInteger getPrice() {
         return price;
@@ -43,13 +50,5 @@ private Category category;
         this.category = category;
     }
 
-    public Product() {
-    }
 
-    public Product(String nameOfProduct, BigInteger price, int countOfProduct, Category category) {
-        this.nameOfProduct = nameOfProduct;
-        this.price = price;
-        this.countOfProduct = countOfProduct;
-        this.category = category;
-    }
 }
