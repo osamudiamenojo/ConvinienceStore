@@ -26,8 +26,8 @@ public class ProductServiceImpl implements ProductService {
             Product product = new Product();
             product.setProductID(rowArray[0]);
             product.setNameOfProduct(rowArray[1]);
-            product.setPrice(Double.parseDouble(rowArray[2]));
-            product.setCountOfProduct(Integer.parseInt(rowArray[3]));
+            product.setUnitPrice(Double.parseDouble(rowArray[2]));
+            product.setQuantityOfProductAvailable(Integer.parseInt(rowArray[3]));
             product.setCategory(Category.valueOf(rowArray[4].toUpperCase()));
             store.getProductsInStore().add(product);
 

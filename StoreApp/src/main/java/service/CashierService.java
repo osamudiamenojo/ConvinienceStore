@@ -2,9 +2,10 @@ package service;
 
 import entities.Customer;
 import entities.Product;
+import entities.Staff;
 
 public interface CashierService {
-     String sellProduct(Customer customer, Product product);
-     String dispenseReceipt(Customer customer);
+     String sellProduct(Staff cashier, Customer customer);
+     String dispenseReceipt(Staff cashier, Customer customer);
 
 }
