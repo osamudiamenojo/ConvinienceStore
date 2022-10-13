@@ -1,5 +1,6 @@
 package service;
 
 public interface ProductService {
-    void createProductsFromCSV();
+    String createProductsFromCSV();
+
 }

@@ -1,15 +1,15 @@
-package utils;
+package fileutil;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class FileReader {
+public class FileReadingClass {
     private ArrayList<String> arrayOfRowsInFile;
 
     public ArrayList<String> readProductsFromCsvFile(String path){
         String line ="";
-         arrayOfRowsInFile = new ArrayList();
+        arrayOfRowsInFile = new ArrayList<String>();
         try {
             BufferedReader bufferedReader =new BufferedReader(new java.io.FileReader(path));
             while ((line=bufferedReader.readLine())!=null){
@@ -19,8 +19,9 @@ public class FileReader {
             throw new RuntimeException(e);
         }
 
-            return arrayOfRowsInFile;
+        return arrayOfRowsInFile;
     }
+
 
 
 }
