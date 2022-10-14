@@ -1,9 +1,12 @@
 package entities;
 
 import enums.Category;
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 
 public class Product {
     private String nameOfProduct;
@@ -11,5 +14,7 @@ public class Product {
     private double unitPrice;
     private int quantityOfProductAvailable;
     private Category category;
+
+
 
 }

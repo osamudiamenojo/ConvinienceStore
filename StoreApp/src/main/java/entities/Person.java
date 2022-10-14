@@ -8,4 +8,7 @@ public abstract class  Person {
     private String name;
     private Gender gender;
 
+    public Person(String name, Gender gender) {
+
+    }
 }

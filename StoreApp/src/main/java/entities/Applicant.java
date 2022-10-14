@@ -1,16 +1,22 @@
 package entities;
 
+import enums.Gender;
 import enums.Qualification;
 import enums.Role;
-import lombok.Data;
+import lombok.*;
 
-@Data
+
+@Getter
+@Setter
+
 
 public class Applicant extends Person{
     private Role role= Role.UNDETERMINED;
     private Qualification qualification;
-
-
+    public Applicant(String name, Gender gender, Qualification qualification) {
+        super(name, gender);
+        this.qualification = qualification;
+    }
 
     public String apply(){
         setRole(Role.CASHIER);

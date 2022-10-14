@@ -1,11 +1,18 @@
 package entities;
-import lombok.Data;
+import enums.Gender;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
+
 public class Customer extends Person {
+
     private double CashAtHand;
     private Product productToBuy;
     private int quantityToBuy;
 
 
+    public Customer(String name, Gender gender, double cashAtHand, Product product, int quantityToBuy) {
+        super(name, gender);
+    }
 }

@@ -12,7 +12,7 @@ import java.util.ListIterator;
 
 public class CashierServiceImpl implements CashierService {
     Store store = new Store();
-    private ListIterator<Product> storeIterator = store.getProductsInStore().listIterator();
+
 
     public String sellProduct(Staff cashier, Customer customer) {
         if (customer == null || cashier == null) throw new ServiceException("customer or cashier cannot be null");
@@ -20,18 +20,18 @@ public class CashierServiceImpl implements CashierService {
             while (!store.getCustomerQueue().isEmpty()) {
                 customer = store.getCustomerQueue().poll();
                 if (store.getProductsInStore().contains(customer.getProductToBuy())) {
-                    while (storeIterator.hasNext()){
-                        if(storeIterator.next()==customer.getProductToBuy()){
+                    while (store.getStoreIterator().hasNext()){
+                        if(store.getStoreIterator().next()==customer.getProductToBuy()){
                             customer.setCashAtHand(customer.getCashAtHand()-(customer.getProductToBuy().getUnitPrice()* customer.getQuantityToBuy()));
-                            storeIterator.next().setQuantityOfProductAvailable(storeIterator.next().getQuantityOfProductAvailable()- customer.getQuantityToBuy());
-                            return customer.getName()+ "Your goods have been selivered";
+                            store.getStoreIterator().next().setQuantityOfProductAvailable(store.getStoreIterator().next().getQuantityOfProductAvailable()- customer.getQuantityToBuy());
+                            return customer.getName()+ "Your goods have been delivered";
                         }
 
                         }
-                    }
+                    }else throw new ServiceException("This product is unavailable");
 
                 }
-            }
+            } else return "This an only be carried out by a cashier";
 
 
         return "Queue is empty";
