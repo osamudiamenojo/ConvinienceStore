@@ -13,7 +13,10 @@ public class Staff extends Person{
     private Role role;
     private Qualification qualification;
 
-    public Staff(String name, Gender gender, String toString, Role cashier, Qualification qualification) {
-
+    public Staff(String name, Gender gender, String staffID, Role role, Qualification qualification) {
+        super(name, gender);
+        this.staffID = staffID;
+        this.role = role;
+        this.qualification = qualification;
     }
 }

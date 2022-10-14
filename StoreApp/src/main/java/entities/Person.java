@@ -9,6 +9,7 @@ public abstract class  Person {
     private Gender gender;
 
     public Person(String name, Gender gender) {
-
+        this.name = name;
+        this.gender = gender;
     }
 }

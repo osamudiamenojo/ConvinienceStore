@@ -32,16 +32,22 @@ public class StoreApp {
 
 
         Customer customer1 = new Customer("Adedotun", Gender.MALE, 20005.00, product1, 45);
-        Customer customer2 = new Customer("Samuel", Gender.MALE, 200005.00, product1, 40);
+        Customer customer2 = new Customer("Samuel", Gender.MALE, 200005.00, product2, 40);
         Customer customer3 = new Customer("Zechariah", Gender.MALE, 2005.00, product1, 20);
-        Customer customer4 = new Customer("Abednego", Gender.MALE, 200005.00, product1, 5);
+        Customer customer4 = new Customer("Abednego", Gender.MALE, 200005.00, product3, 5);
         Customer customer5 = new Customer("Michael", Gender.MALE, 67005.00, product1, 45);
         Customer customer6 = new Customer("Emmanuel", Gender.MALE, 25000.00, product1, 45);
 
         System.out.println(applicant1.apply());
         String hireResult = managerService.hire(manager, applicant1);
         System.out.println(hireResult);
-        String buyingResult = customerService.buyProduct(customer1, product1);
+
+        customerService.buyProduct(customer1, product2);
+        customerService.buyProduct(customer2, product2);
+        customerService.buyProduct(customer3, product2);
+        customerService.buyProduct(customer4, product2);
+        customerService.buyProduct(customer5, product2);
+        String buyingResult = customerService.buyProduct(customer6, product1);
         System.out.println(buyingResult);
 
     }
