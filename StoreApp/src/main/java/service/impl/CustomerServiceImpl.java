@@ -11,7 +11,7 @@ import java.util.Iterator;
 
 @Getter
 public class CustomerServiceImpl implements CustomerService {
-    private final Store store = new Store();
+    private  Store store = new Store();
 
 
     @Override
@@ -30,5 +30,13 @@ public class CustomerServiceImpl implements CustomerService {
         if (customer == null || product == null) throw new ServiceException("Customer or Product cannot be null");
         if (!customer.getCart().add(product)) throw new ServiceException("Product not added");
         customer.getCart().add(product);
+    }
+    public int getCountOfProductsInCart(Customer customer){
+        int count=0;
+        for (Product product: customer.getCart()
+             ) {
+            count++;
+        }
+        return count;
     }
 }
