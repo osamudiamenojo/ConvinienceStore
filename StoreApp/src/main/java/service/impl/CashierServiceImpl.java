@@ -8,27 +8,35 @@ import exceptions.ServiceException;
 import service.CashierService;
 import storerepository.Store;
 
+import java.util.ListIterator;
+
 public class CashierServiceImpl implements CashierService {
     Store store = new Store();
+    private ListIterator<Product> storeIterator = store.getProductsInStore().listIterator();
+
     public String sellProduct(Staff cashier, Customer customer) {
-        if (customer == null || cashier == null)throw new ServiceException("customer or cashier cannot be null");
-        if(Role.CASHIER.equals(cashier.getRole())) {
-            customer = store.getCustomerQueue().poll();
-            if(store.getProductsInStore().contains(customer.getProductToBuy())) {
-                for (Product productAvailable : store.getProductsInStore()
-                ) {
+        if (customer == null || cashier == null) throw new ServiceException("customer or cashier cannot be null");
+        if (Role.CASHIER.equals(cashier.getRole())) {
+            while (!store.getCustomerQueue().isEmpty()) {
+                customer = store.getCustomerQueue().poll();
+                if (store.getProductsInStore().contains(customer.getProductToBuy())) {
+                    while (storeIterator.hasNext()){
+                        if(storeIterator.next()==customer.getProductToBuy()){
+                            customer.setCashAtHand(customer.getCashAtHand()-(customer.getProductToBuy().getUnitPrice()* customer.getQuantityToBuy()));
+                            storeIterator.next().setQuantityOfProductAvailable(storeIterator.next().getQuantityOfProductAvailable()- customer.getQuantityToBuy());
+                            return customer.getName()+ "Your goods have been selivered";
+                        }
+
+                        }
+                    }
 
                 }
-            }else {
-                return "Product unavailable";
             }
-        } else {
-            return "You need to be a cashier to sell";
-        }
 
 
         return "Queue is empty";
-        }
+    }
+
 
 
 
