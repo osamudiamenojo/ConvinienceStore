@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class FileReadingClass {
+public class FileReader {
     private ArrayList<String> arrayOfRowsInFile;
 
     public ArrayList<String> readProductsFromCsvFile(String path){
@@ -18,7 +18,6 @@ public class FileReadingClass {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
         return arrayOfRowsInFile;
     }
 

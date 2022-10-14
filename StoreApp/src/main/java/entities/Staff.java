@@ -3,11 +3,15 @@ package entities;
 import enums.Gender;
 import enums.Qualification;
 import enums.Role;
-import lombok.Data;
+import lombok.*;
 
 import java.util.UUID;
 
-@Data
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
+
 public class Staff extends Person{
     private String staffID;
     private Role role;

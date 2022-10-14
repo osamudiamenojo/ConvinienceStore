@@ -8,45 +8,36 @@ import exceptions.ServiceException;
 import service.CashierService;
 import storerepository.Store;
 
-import java.util.ListIterator;
+import java.math.BigDecimal;
+import java.math.MathContext;
+
 
 public class CashierServiceImpl implements CashierService {
     Store store = new Store();
 
 
-    public String sellProduct(Staff cashier, Customer customer) {
+    public String sellForCustomer(Staff cashier, Customer customer) {
         if (customer == null || cashier == null) throw new ServiceException("customer or cashier cannot be null");
-        if (Role.CASHIER.equals(cashier.getRole())) {
-            while (!store.getCustomerQueue().isEmpty()) {
-                customer = store.getCustomerQueue().poll();
-                if (store.getProductsInStore().contains(customer.getProductToBuy())) {
-                    while (store.getStoreIterator().hasNext()){
-                        if(store.getStoreIterator().next()==customer.getProductToBuy()){
-                            customer.setCashAtHand(customer.getCashAtHand()-(customer.getProductToBuy().getUnitPrice()* customer.getQuantityToBuy()));
-                            store.getStoreIterator().next().setQuantityOfProductAvailable(store.getStoreIterator().next().getQuantityOfProductAvailable()- customer.getQuantityToBuy());
-                            return customer.getName()+ "Your goods have been delivered";
-                        }
-
-                        }
-                    }else throw new ServiceException("This product is unavailable");
-
-                }
-            } else return "This an only be carried out by a cashier";
-
-
-        return "Queue is empty";
+        for (Product itemInCart : customer.getCart()
+             ) {
+            for (Product productInStore: store.getProductsInStore()
+                 ) {
+                if ( itemInCart.getNameOfProduct().equals(productInStore.getNameOfProduct())){
+                     customer.setCashAtHand(customer.getCashAtHand().subtract(productInStore.getUnitPrice(),new MathContext(2)));
+                     productInStore.setQuantityOfProductAvailable(productInStore.getQuantityOfProductAvailable()-itemInCart.getQuantityOfProductAvailable());
+            }
+            }
+        }
+        return customer.getName() + " Your order has been processed";
     }
-
-
-
-
-    public String dispenseReceipt(Staff cashier, Customer customer) {
+    public String dispenseReceipt(Staff cashier, Customer customer, BigDecimal totalCost) {
         if(customer==null) throw new ServiceException("customer cannot be null");
+        if (!Role.CASHIER.equals(cashier.getRole())) return "Only a cashier can carry out this function";
         else if (!store.getCustomerQueue().contains(customer)) {
             return """
              You purchased goods worth %s
              Thanks for your patronage
-                    """.formatted(customer.getProductToBuy().getUnitPrice()* customer.getQuantityToBuy());
+                    """.formatted(totalCost);
         }
         return "";
     }

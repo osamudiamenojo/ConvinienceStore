@@ -8,6 +8,8 @@ import lombok.*;
 
 @Getter
 @Setter
+@ToString
+@EqualsAndHashCode
 
 
 public class Applicant extends Person{
