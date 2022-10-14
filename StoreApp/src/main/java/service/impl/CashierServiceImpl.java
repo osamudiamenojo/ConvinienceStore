@@ -30,6 +30,14 @@ public class CashierServiceImpl implements CashierService {
         }
         return customer.getName() + " Your order has been processed";
     }
+    public String  attendToCustomers(Staff cashier, Customer customer){
+        if (customer == null || cashier == null) throw new ServiceException("customer or cashier cannot be null");
+        while(!store.getCustomerQueue().isEmpty()){
+            customer = store.getCustomerQueue().poll();
+            sellForCustomer(cashier, customer);
+        }
+        return "All orders have been processed";
+    }
     public String dispenseReceipt(Staff cashier, Customer customer, BigDecimal totalCost) {
         if(customer==null) throw new ServiceException("customer cannot be null");
         if (!Role.CASHIER.equals(cashier.getRole())) return "Only a cashier can carry out this function";
